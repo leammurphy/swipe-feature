@@ -2,31 +2,74 @@ import React from 'react'
 import { View, Image, StyleSheet, Text } from 'react-native'
 import { FontAwesome } from '@expo/vector-icons'
 
-export default function SwipeableImage({ user, willLike, willPass }) {
+function SearchScreen({ user }) {
   return (
-    <View>
-      <Image source={{ uri: user.picture.large }} style={styles.photo} />
+    <View style={styles.container}>
+      <View style={styles.rightresume}>
+
+          <Image style={styles.image} source={require("../assets/icon.png")} />
+
+          <View style={styles.personalinfo}>
+            <Text style={styles.name}>{user.name}</Text>
+            <Text style={styles.phone}>{user.phonenumber}</Text>
+            <Text style={styles.email}>{user.email}</Text>
+          </View>
+
+      </View>
+
+        {/* Other parts of resume like summary */}
+        <View style={styles.bottomresume}>
+
+          <View style={styles.skills}>
+            <Text>Skills: {user.skills}</Text>
+          </View>
+
+          <View style={styles.summary}>
+            <Text numberOfLines={4} ellipsizeMode='tail'>Summary:
+              {user.summary}
+            </Text>
+          </View>
+
+          <View style={styles.experience}>
+            <Text >Experience:</Text>
+            <Text numberOfLines={4} ellipsizeMode='tail'>
+              {user.experience}
+            </Text>
+          </View>
+
+          <View style={styles.links}>
+            <Text>External Links</Text>
+            <Text style={styles.linkedin}>
+              {user.externallinks}
+            </Text>
+          </View>
+
+        </View>
+
+      </View>
+  );
+}
+
+export default function SwipeableImage({ user, willLike, willPass }) {
+
+  return (
+    <View >
+
       {willLike && (
         <View style={styles.likeBox}>
-          <Text style={{ ...styles.textPrimary, color: '#64EDCC' }}>LIKE</Text>
+          <Text style={{ ...styles.textPrimary, color: '#64EDCC' }}>SAVE</Text>
         </View>
       )}
       {willPass && (
         <View style={styles.passBox}>
-          <Text style={{ ...styles.textPrimary, color: '#F06795' }}>NOPE</Text>
+          <Text style={{ ...styles.textPrimary, color: '#F06795' }}>PASS</Text>
         </View>
       )}
-      <View style={styles.textContainer}>
-        <View style={styles.textRow}>
-          <Text style={[styles.textPrimary, styles.textShadow]}>{user.name.first}</Text>
-          <Text style={[styles.textSecondary, styles.textShadow]}>{user.dob.age}</Text>
-        </View>
-        <View style={styles.textRow}>
-          <FontAwesome name="map-marker" size={20} color="white"></FontAwesome>
-          <Text style={[styles.textSecondary, styles.textShadow]}>{user.location.city}</Text>
-        </View>
-      </View>
+
+      <SearchScreen  user={user}/>
+
     </View>
+
   )
 }
 
@@ -43,42 +86,85 @@ const boxStyle = {
 
 const styles = StyleSheet.create({
   likeBox: {
-    ...boxStyle,
+    ... boxStyle,
     left: 40,
-    borderColor: '#64EDCC',
+    borderColor: 'green',
   },
   passBox: {
     ...boxStyle,
     right: 40,
     borderColor: '#F06795',
   },
-  photo: {
-    height: '100%',
-    resizeMode: 'cover',
-    borderRadius: 20,
+
+  image: {
+    width: (90),
+    height: (90),
+    borderRadius: 50,
+    marginLeft: (10),
   },
-  textContainer: {
-    position: 'absolute',
-    bottom: 20,
-    left: 20,
-  },
-  textRow: {
+
+  rightresume: {
     flexDirection: 'row',
     alignItems: 'center',
+    padding: (5),
+    marginBottom: (15),
+    marginTop: (15),
+    borderRadius:10,
   },
-  textPrimary: {
-    color: 'white',
-    fontSize: 35,
+
+  container:{
+    height: '100%',
+    backgroundColor: '#605770',
+    borderRadius: 60,
+    borderWidth: 5,
+  },
+
+  personalinfo: {
+    alignItems: 'center',
+    marginLeft: (45),
+  },
+
+  name: {
+    fontSize: (32),
     fontWeight: 'bold',
+    marginBottom: (4),
   },
-  textSecondary: {
-    color: 'white',
-    marginLeft: 10,
-    fontSize: 25,
+
+  phone: {
+    fontSize: (18),
+    marginBottom: (10),
   },
-  textShadow: {
-    textShadowColor: 'rgba(0, 0, 0, 0.80)',
-    textShadowOffset: { width: -1, height: 1 },
-    textShadowRadius: 10,
+
+  bottomresume: {
+    marginLeft: (10),
+    marginRight: (10),
   },
+
+  skills: {
+    borderWidth: 5,
+    padding: (10),
+    borderRadius: 15,
+    marginBottom: (20),
+  },
+
+  summary: {
+    borderWidth: 5,
+    padding: (10),
+    borderRadius: 15,
+    marginBottom: (20),
+  },
+  experience: {
+    borderWidth: 5,
+    padding: (10),
+    borderRadius: 15,
+    marginBottom: (20),
+  },
+
+  links: {
+    borderWidth: 5,
+    padding:(15),
+    borderRadius: 15,
+    marginBottom: (20),
+  },
+
 })
