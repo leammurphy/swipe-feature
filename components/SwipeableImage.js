@@ -89,11 +89,15 @@ const styles = StyleSheet.create({
     ... boxStyle,
     left: 40,
     borderColor: 'green',
+    backgroundColor: '#9BC1BC',
+    zIndex: 999,
   },
   passBox: {
     ...boxStyle,
     right: 40,
-    borderColor: '#F06795',
+    borderColor: '#690500',
+    backgroundColor: '#ED6A5A',
+    zIndex: 999,
   },
 
   image: {
@@ -114,9 +118,10 @@ const styles = StyleSheet.create({
 
   container:{
     height: '100%',
-    backgroundColor: '#605770',
+    backgroundColor: 'white',
     borderRadius: 60,
     borderWidth: 5,
+    
   },
 
   personalinfo: {

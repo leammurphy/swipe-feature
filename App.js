@@ -5,10 +5,12 @@ import Constants from 'expo-constants'
 import axios from 'axios'
 
 import Swipes from './components/Swipes'
+import BottomBar from './components/BottomBar'
 
 export default function App() {
   const [users, setUsers] = useState([])
   const [currentIndex, setCurrentIndex] = useState(0)
+  const swipesRef = useRef(null)
   
   const data = [
     {
@@ -125,6 +127,12 @@ export default function App() {
     setCurrentIndex(nextIndex)
   }
 
+  function handleLikePress() {
+    swipesRef.current.openLeft()
+  }
+  function handlePassPress() {
+    swipesRef.current.openRight()
+  }
 
   return (
     <View style={styles.container}>
@@ -135,14 +143,16 @@ export default function App() {
               currentIndex === i && (
                 <Swipes
                   key={i}
+                  ref={swipesRef}
                   currentIndex={currentIndex}
                   data={data}
                   handleLike={handleLike}
                   handlePass={handlePass}
-                ></Swipes>
-              )
-          )}
+                  ></Swipes>
+                  )
+                  )}
       </View>
+      <BottomBar handleLikePress={handleLikePress} handlePassPress={handlePassPress} />
     </View>
   )
 }
